@@ -77,6 +77,11 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         });
 
         btnConsult.setText("Consultar");
+        btnConsult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultActionPerformed(evt);
+            }
+        });
 
         tblGeneral.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,6 +196,27 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         inventario.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());
         
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
+        String[][] invtArray = inventario.getArray();
+        
+        if(invtArray != null){
+            for(int i=0; i<invtArray.length; i++) {
+            //Bucle que recorre el array que está en la posición i
+              DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
+
+                Vector row = new Vector();
+                row.add(invtArray[i][1]);
+                row.add(invtArray[i][2]);
+                row.add(invtArray[i][3]);
+                row.add(invtArray[i][5]);
+                row.add(invtArray[i][4]);
+                model.addRow(row);        
+            }       
+        }
+        //Bucle que recorre el primer array
+         
+    }//GEN-LAST:event_btnConsultActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

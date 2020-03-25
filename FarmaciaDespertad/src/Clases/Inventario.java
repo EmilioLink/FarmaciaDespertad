@@ -23,18 +23,22 @@ public class Inventario {
         inventario = new String[100][6];
     }
 
-    public void setNewItem(String marca,String tipo,Double precio,int cantidad,Date fechaVencimiento){
+    public void setNewItem(String marca,String tipo,Double precio,int cantidad,String fechaVencimiento){
         int newid = getNextID();
         inventario[newid][0] = String.valueOf(newid);
         inventario[newid][1] = marca;
         inventario[newid][2] = tipo;
         inventario[newid][3] = String.valueOf(precio);
         inventario[newid][4] = String.valueOf(cantidad);
-        inventario[newid][5] = String.valueOf(fechaVencimiento);
+        inventario[newid][5] = fechaVencimiento;
     }
     
     public int getNextID(){
         return id++;
+    }
+    
+    public String[][] getArray(){
+        return inventario;
     }
     
     
