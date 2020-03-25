@@ -41,6 +41,11 @@ public class Home extends javax.swing.JFrame {
 
         openMenuItem.setMnemonic('o');
         openMenuItem.setText("Registro de Inventario");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setMnemonic('s');
@@ -78,6 +83,12 @@ public class Home extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        IngresoInventario inv = new IngresoInventario();
+        desktopPane.add(inv);
+        inv.show();
+    }//GEN-LAST:event_openMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -108,7 +119,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new Home().setVisible(true); 
             }
         });
     }
