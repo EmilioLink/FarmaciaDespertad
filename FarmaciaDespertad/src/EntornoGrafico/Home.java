@@ -5,17 +5,20 @@
  */
 package EntornoGrafico;
 
+import Clases.Inventario;
+
 /**
  *
  * @author emili
  */
 public class Home extends javax.swing.JFrame {
-
+     static Inventario inventario;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+         inventario = new Inventario();
     }
 
     /**

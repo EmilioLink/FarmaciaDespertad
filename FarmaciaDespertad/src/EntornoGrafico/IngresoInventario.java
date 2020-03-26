@@ -15,13 +15,13 @@ import javax.swing.table.DefaultTableModel;
  * @author emili
  */
 public class IngresoInventario extends javax.swing.JInternalFrame {
-    Inventario inventario;
+    Inventario inv;
     /**
      * Creates new form IngresoInventario
      */
     public IngresoInventario() {
         initComponents();
-        startInventario();
+        inv = Home.inventario;
     }
 
     /**
@@ -48,6 +48,13 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         btnConsult = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGeneral = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Ingreso de Inventario");
+        setToolTipText("null");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Ingreso de Inventario");
@@ -175,9 +182,7 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void startInventario(){
-         inventario = new Inventario();
-    }
+   
     
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         //DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
@@ -193,12 +198,12 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         row.add(txtCant.getText());
         model.addRow(row);
         
-        inventario.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());
+        inv.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
-        String[][] invtArray = inventario.getArray();
+        String[][] invtArray = inv.getArray();
         
         if(invtArray != null){
             for(int i=0; i<invtArray.length; i++) {
