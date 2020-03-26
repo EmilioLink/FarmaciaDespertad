@@ -185,9 +185,6 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
    
     
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        //DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
-        //model.addRow(new Object[]{txtMarca.getText(), cmbTipo.getSelectedItem().toString(), txtPrecio.getText(),txtVenc.getText(),txtCant.getText()});
-        
         DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
 
         Vector row = new Vector();
@@ -198,16 +195,14 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         row.add(txtCant.getText());
         model.addRow(row);
         
-        inv.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());
-        
+        inv.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());       
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
         String[][] invtArray = inv.getArray();
         
         if(invtArray != null){
-            for(int i=0; i<invtArray.length; i++) {
-            //Bucle que recorre el array que está en la posición i
+            for(int i=0; i<invtArray.length; i++) {       
               DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
 
                 Vector row = new Vector();
@@ -218,9 +213,7 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
                 row.add(invtArray[i][4]);
                 model.addRow(row);        
             }       
-        }
-        //Bucle que recorre el primer array
-         
+        }                
     }//GEN-LAST:event_btnConsultActionPerformed
 
 
