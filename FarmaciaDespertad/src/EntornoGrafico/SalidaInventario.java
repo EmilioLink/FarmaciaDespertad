@@ -6,7 +6,17 @@
 package EntornoGrafico;
 
 import Clases.Inventario;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.Objects;
 import java.util.Vector;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SalidaInventario extends javax.swing.JInternalFrame {
      Inventario inv;
+     String Idinicial;
     /**
      * Creates new form SalidaInventario
      */
@@ -35,7 +46,8 @@ public class SalidaInventario extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGeneral = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnConsult = new javax.swing.JButton();
+        btnProcess = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -53,11 +65,11 @@ public class SalidaInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Marca / Fabricante", "Tipo", "Precio", "Fecha de Vencimiento", "Cantidad que ingreso"
+                "Id", "Marca / Fabricante", "Tipo", "Precio", "Fecha de Vencimiento", "Cantidad que ingreso", "Cantidad Disponible", "Procesado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -66,10 +78,17 @@ public class SalidaInventario extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblGeneral);
 
-        jButton1.setText("Consulta de Inventario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConsult.setText("Consulta de Inventario");
+        btnConsult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConsultActionPerformed(evt);
+            }
+        });
+
+        btnProcess.setText("Procesar Salida de Inventario");
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
             }
         });
 
@@ -78,55 +97,166 @@ public class SalidaInventario extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(439, 439, 439)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 752, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 601, Short.MAX_VALUE)
+                        .addComponent(btnProcess)
+                        .addGap(560, 560, 560))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConsult)
+                    .addComponent(jLabel2))
+                .addGap(575, 575, 575))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(28, 28, 28)
-                .addComponent(jButton1)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(btnConsult)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnProcess)
+                .addContainerGap(294, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
+        fillTable();
+    }//GEN-LAST:event_btnConsultActionPerformed
+
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+         DefaultTableModel modelo = (DefaultTableModel) tblGeneral.getModel();
+         if (tblGeneral.getSelectedRow() != -1) {
+            String codigo = (String) modelo.getValueAt(tblGeneral.getSelectedRow(), 0);
+            String total =  (String) modelo.getValueAt(tblGeneral.getSelectedRow(), 6);
+            if(Objects.equals(codigo, Idinicial)){
+                
+               
+                //JTextField field1 = new JTextField("1234.56");
+                //JTextField field2 = new JTextField("9876.54");
+                JCheckBox allProduct = new JCheckBox();
+                JTextField prodcuto = new JTextField();
+                
+               
+                prodcuto.setSize(6, 20);
+                
+                allProduct.setText("Procesar todo los productos");
+                
+                
+                JPanel panel = new JPanel(new GridLayout(0, 1));
+                panel.add(new JLabel("Selecionna si desea procesar la cantidad completa \n O ingrese cuanto producto desea procesar"));
+                panel.add(allProduct);
+                panel.add(prodcuto);
+                
+                 
+                
+                int result = JOptionPane.showConfirmDialog(null, panel, "Test",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    if(allProduct.isSelected()){
+                        inv.deleteProducto(codigo);
+                        fillTable();
+                    }else if(!Objects.equals(prodcuto.getText(),"")  ){
+                        int ingresado = Integer.valueOf(prodcuto.getText());
+                        int stock = Integer.valueOf(total);
+                        
+                        if( ingresado > stock ){
+                             String message = "La cantidad Ingresada es\n"
+                             + "mayor al producto disponible\n";
+                             JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                             JOptionPane.ERROR_MESSAGE);
+                        }else{
+                          inv.updateProducto(codigo, (stock - ingresado));
+                           fillTable();
+                        }
+                    }
+
+                    
+                } 
+                
+            }else{
+                 String message = "Farmacias Despertad\n"
+                 + "trabaja con el modelo PEPS(Primera Entrada Primera Salida)\n"
+                 + "debes de seleccionar el primer producto NO PROCESADO para"
+                 + "procesar la salida";
+             JOptionPane.showMessageDialog(new JFrame(), message, "Error en salida",
+            JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else {
+            String message = "No se ha seleccionado\n"
+            + "ningun producto\n";
+             JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+            JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnProcessActionPerformed
+
+    public void fillTable(){
+        Idinicial = "";
         String[][] invtArray = inv.getArray();
         
         if(invtArray != null){
-            for(int i=0; i<invtArray.length; i++) {       
-              DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
+            
+             if(tblGeneral.getRowCount()>0){
+                 javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+             new Object [][] {
 
-                Vector row = new Vector();
-                row.add(invtArray[i][0]);
-                row.add(invtArray[i][1]);
-                row.add(invtArray[i][2]);
-                row.add(invtArray[i][3]);
-                row.add(invtArray[i][5]);
-                row.add(invtArray[i][4]);
-                model.addRow(row);        
+            },
+            new String [] {
+                "Id", "Marca / Fabricante", "Tipo", "Precio", "Fecha de Vencimiento", "Cantidad que ingreso", "Cantidad Disponible", "Procesado"
+            });
+                tblGeneral.setModel(modelo);
+            }
+            
+            // Obtener la llave del primer registro NO PROCESADO
+            for(int i=0; i<invtArray.length; i++) {       
+                DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
+                if(Objects.equals(invtArray[i][6],"N")){
+                    Idinicial = invtArray[i][0];
+                    i = invtArray.length;
+                }                  
+            } 
+            
+            
+            for(int i=0; i<invtArray.length; i++) {       
+                DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
+                if(Objects.equals(invtArray[i][0],null)){
+                }else{
+                      Vector row = new Vector();
+                      row.add(invtArray[i][0]);
+                      row.add(invtArray[i][1]);
+                      row.add(invtArray[i][2]);
+                      row.add(invtArray[i][3]);
+                      row.add(invtArray[i][5]);
+                      row.add(invtArray[i][4]);
+                      row.add(invtArray[i][7]);
+                      row.add(invtArray[i][6]);
+                      
+                      model.addRow(row);  
+                }
+                
+                    
             }       
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnConsult;
+    private javax.swing.JButton btnProcess;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblGeneral;

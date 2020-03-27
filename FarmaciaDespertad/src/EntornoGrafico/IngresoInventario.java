@@ -7,7 +7,10 @@ package EntornoGrafico;
 
 import Clases.Inventario;
 import java.sql.Date;
+import java.util.Objects;
 import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -83,7 +86,7 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnConsult.setText("Consultar");
+        btnConsult.setText("Limpiar");
         btnConsult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultActionPerformed(evt);
@@ -185,6 +188,13 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
    
     
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        
+        if(Objects.equals(txtMarca.getText(),"") || Objects.equals(txtPrecio.getText(),"") || Objects.equals(txtVenc.getText(),"") || Objects.equals(txtCant.getText(),"")){
+            String message = "Debes de Ingresar todo los datos";
+                             JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                             JOptionPane.ERROR_MESSAGE);
+        }else{
+        
         DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
 
         Vector row = new Vector();
@@ -196,24 +206,14 @@ public class IngresoInventario extends javax.swing.JInternalFrame {
         model.addRow(row);
         
         inv.setNewItem(txtMarca.getText(), cmbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), Integer.valueOf(txtCant.getText()), txtVenc.getText());       
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultActionPerformed
-        String[][] invtArray = inv.getArray();
-        
-        if(invtArray != null){
-            for(int i=0; i<invtArray.length; i++) {       
-              DefaultTableModel model = (DefaultTableModel) tblGeneral.getModel();
-
-                Vector row = new Vector();
-                row.add(invtArray[i][1]);
-                row.add(invtArray[i][2]);
-                row.add(invtArray[i][3]);
-                row.add(invtArray[i][5]);
-                row.add(invtArray[i][4]);
-                model.addRow(row);        
-            }       
-        }                
+        txtMarca.setText("");
+        txtPrecio.setText("");
+        txtVenc.setText("");
+        txtCant.setText("");
     }//GEN-LAST:event_btnConsultActionPerformed
 
 
